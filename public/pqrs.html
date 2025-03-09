@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PQRS</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Encabezado -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <span> Fondo Munipal de Becas</span>
+        </div>
+        <div class="govco-form1">
+            <a href="index.html" class="btn-secundary">Página Principal</a>
+            <a href="login.html" class="btn-secundary">Login</a>
+        </div>
+    </div>
+</header>
+
+<!-- Contenido principal -->
+<main class="govco-auth1">
+    <div class="govco-auth-container">
+        <h2 class="h2">Formato de PQRS - Beca/Subsidio</h2>
+        <div class="login">
+            <form class="govco-form" method="POST" action="../backend/pqrs.php">
+                <label>Fecha:
+                <input type="date" name="fecha" required>
+                </label>
+                <label>Nombre completo:
+                <input type="text" name="nombre" required>
+                </label>
+                <label>Documento de identidad:
+                <input type="text" name="documento" required>
+                </label>
+                <label>Correo Electrónico:
+                <input type="email" name="correo" required>
+                </label>
+                <label>Dirección:
+                <input type="text" name="direccion" required>
+                </label>
+                <label>Asunto:
+                <input type="text" name="asunto" required>
+                </label>
+                <label>Descripción de la situación:
+                <textarea name="descripcion" rows="5" cols="50" required></textarea>
+                </label>
+                <label>Solicitud específica:
+                <textarea name="solicitud" rows="5" cols="50" required></textarea>
+                </label>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- Secciones adicionales -->
+<section class="quick-links">
+
+</section>
+<!-- Pie de página -->
+<footer class="footer">
+    <p>&copy; 2025 Fondo munipal de becas y subsidios - Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>
