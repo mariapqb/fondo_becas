@@ -1,25 +1,81 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+.main {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se acomoden en columnas */
+    justify-content: center;
+    max-width: 1400px;
+    margin: auto;
+    padding: 50px 20px;
 }
 
-@media (max-width: 768px) {
+.tramites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Se ajusta automáticamente */
+    gap: 20px;
+    justify-content: center;
+}
+
+
+@media (max-width: 1024px) {
     .main {
-        flex-direction: column;
+        flex-direction: column; /* Cambia a una disposición vertical */
         align-items: center;
     }
+
     .welcome, .login-box {
         width: 100%;
         text-align: center;
     }
 }
 
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .tramites-grid {
+        grid-template-columns: repeat(2, 1fr); /* En tablets, dos columnas */
+    }
+}
+
+@media (max-width: 480px) {
+    .nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tramites-grid {
+        grid-template-columns: 1fr; /* En móviles, una sola columna */
+    }
+
+    .quick-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .login, .login2 {
+        padding: 30px; /* Reduce el padding en móviles */
+    }
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: 100%; /* En móviles, ocupa todo el ancho */
+}
+html, body {
+    overflow-x: hidden;
 }
 
 
@@ -62,11 +118,11 @@ body {
 .auth-buttons .btn-primary,
 .auth-buttons .btn-secondary {
     padding: 8px 15px;
-    border-radius: 5px;
-    margin-left: 5px;
-}
+    border-radius: 5px; 
+    margin-left: 5px;   
+}   
 
-.btn-primary {
+.btn-primary {  
     background-color: #0056b3;
     color: white;
     border: none;
@@ -87,10 +143,11 @@ body {
 
 .banner-img {
     width: 100%;
-    max-height: 400px;
+    max-height: 700px;
+    object-fit: cover; /* Ajusta la imagen sin deformarla */
     border-radius: 10px; /* Opcional */
-
     /* Aplica el efecto de difuminado en la parte inferior */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0));
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0));
 }
 
@@ -181,17 +238,32 @@ body {
     padding: 50px;
     margin-top: 15px;
     border: 1px solid #534c4c;
+    border-radius: 8px;
     box-shadow: 10px 11px 20px rgba(0, 0, 0, 0.3); /* Desplazamiento x, y, desenfoque, color */
     border-radius: 10px; /* Opcional: bordes redondeados */
 }
 
 .login2  {
     width: 80%;
-    padding: 20px;
+    padding: 30px;
     margin-top: 15px;
     border: 1px solid #534c4c;
+    border-radius: 8px;
     box-shadow: 10px 11px 20px rgba(0, 0, 0, 0.3); /* Desplazamiento x, y, desenfoque, color */
     border-radius: 10px; /* Opcional: bordes redondeados */
+}
+
+
+.sidebar { /*panel lateral */
+    width: 250px;
+    height: 100vh; /* Ocupa toda la altura */
+    background-color: #003366; /* Color oscuro */
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -201,7 +273,7 @@ body {
     justify-content: space-around;
     background-color: #003366;
     color: white;
-    padding: 60px;
+    padding: 80px;
 }
 
 .quick-links h3 {
@@ -223,7 +295,7 @@ body {
     text-align: center;
     background-color: #002244;
     color: white;
-    padding: 15px;
+    padding: 10px;
 }
 
 
@@ -447,17 +519,7 @@ body {
     background-color: #0056b3;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .tramites-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-@media (max-width: 480px) {
-    .tramites-grid {
-        grid-template-columns: 1fr;
-    }
-}
+
 
 
