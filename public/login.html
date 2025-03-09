@@ -3,15 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Fondo Becas</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Inicio de Sesión - GOV.CO</title>
+    <link rel="stylesheet" href="css/Styles.css">
 </head>
 <body>
-<h2>Iniciar Sesión</h2>
-<form action="../backend/login.php" method="POST">
-    <input type="text" name="usuario" placeholder="Usuario" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Ingresar</button>
-</form>
+
+<!-- Encabezado -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <span> GOV.CO</span>
+        </div>
+        <div class="search-bar">
+            <select>
+                <option>Trámites</option>
+                <option>Opción 1</option>
+                <option>Opción 2</option>
+            </select>
+            <input type="text" placeholder="Realiza una búsqueda en portal GOV.CO">
+            <button>🔍</button>
+        </div>
+        <div class="auth-buttons">
+            <button class="btn-secondary">Regístrate</button>
+        </div>
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Biblioteca</a></li>
+            <li><a href="#">Caja de Herramientas</a></li>
+            <li><a href="#">Entidades</a></li>
+            <li><a href="#">Consulta Certificado</a></li>
+            <li><a href="#">Ventanilla Única</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Contenido principal -->
+<main class="govco-auth">
+    <div class="govco-auth-container">
+        <section class="welcome">
+            <h1>Bienvenido a GOV.CO</h1>
+            <p>¡No más vueltas!</p>
+            <p>Accede a la gestión de tus trámites y servicios y cuéntanos cómo ha sido tu experiencia usando nuestro portal.</p>
+        </section>
+    </div>
+    <div class="govco-auth-container">
+        <section class="login">
+        <h2>Inicio de Sesión</h2>
+        <form class="govco-form" action="../backend/login.php" method="POST">
+            <label>Usuario</label>
+            <input type="text" name="usuario" placeholder="Digite su Usuario" required>
+
+            <label>Contraseña</label>
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit">Ingresar</button>
+        </form>
+            <p>¿Aún no tienes una cuenta en GOV.CO? <a href="#">Regístrate</a></p>
+        </section>
+    </div>
+</main>
+
+<!-- Secciones adicionales -->
+<section class="quick-links">
+    <div>
+        <h3>Accesos rápidos:</h3>
+        <ul>
+            <li><a href="#">Participa</a></li>
+            <li><a href="#">Actualidad</a></li>
+            <li><a href="#">Entidades</a></li>
+            <li><a href="#">Sobre nosotros</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Aplicaciones y servicios:</h3>
+        <ul>
+            <li><a href="#">Carpeta ciudadana digital</a></li>
+            <li><a href="#">Consulta códigos CIUU</a></li>
+        </ul>
+    </div>
+    <div>
+        <h3>Servicios para entidades:</h3>
+        <ul>
+            <li><a href="#">Biblioteca</a></li>
+            <li><a href="#">Caja de herramientas</a></li>
+            <li><a href="#">Plan de integración</a></li>
+            <li><a href="#">Mi Colombia Digital</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Pie de página -->
+<footer class="footer">
+    <p>&copy; 2025 GOV.CO - Todos los derechos reservados.</p>
+</footer>
+
 </body>
 </html>
