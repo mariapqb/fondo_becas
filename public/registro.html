@@ -67,6 +67,24 @@
 <footer class="footer">
     <p>&copy; 2025 Fondo munipal de becas y subsidios - Todos los derechos reservados.</p>
 </footer>
+<!-- Script para mostrar alertas -->
+<script>
+    window.onload = function() {
+        // Obtener los parámetros de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
 
+        // Mostrar alerta si hay un mensaje de error
+        if (error) {
+            alert(error);
+        }
+
+        // Mostrar alerta si hay un mensaje de éxito
+        if (success) {
+            alert(success);
+        }
+    }
+</script>
 </body>
 </html>

@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirección según el rol
             if ($row["rol"] === "Administrador") {
-                header("Location: admin_dashboard.php");
+                header("Location: ..\public\solicitudes.html");
             } else {
-                header("Location: beneficiario_dashboard.php");
+                header("Location: ..\public\beneficiarios.html");
             }
             exit();
         } else {

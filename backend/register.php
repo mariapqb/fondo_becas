@@ -1,4 +1,5 @@
 <?php
+session_start(); // Iniciar sesión
 global $conn;
 require_once "db.php"; // Archivo con la conexión a la base de datos
 
@@ -12,12 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validar que los campos no estén vacíos
     if (empty($tipo_documento) || empty($numero_documento) || empty($password) || empty($confirm_password)) {
-        die("Error: Todos los campos son obligatorios.");
+        $_SESSION['error'] = "Todos los campos son obligatorios.";
+        header("Location: ../public/registro.html");
+        exit();
     }
 
     // Validar que las contraseñas coincidan
     if ($password !== $confirm_password) {
-        die("Error: Las contraseñas no coinciden.");
+        $_SESSION['error'] = "Las contraseñas no coinciden.";
+        header("Location: ../public/registro.html");
+        exit();
     }
 
     // Verificar si el usuario ya existe
@@ -28,7 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $stmt_check->get_result();
 
     if ($result->num_rows > 0) {
-        die("Error: El usuario ya está registrado.");
+        $_SESSION['error'] = "El usuario ya está registrado.";
+        header("Location: ../public/registro.html");
+        exit();
     }
 
     // Cifrar la contraseña con SHA-256
@@ -40,9 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_insert->bind_param("ssss", $tipo_documento, $numero_documento, $password_hash, $rol);
 
     if ($stmt_insert->execute()) {
-        echo "Registro exitoso. <a href='../public/login.html'>Iniciar sesión</a>";
+        $_SESSION['success'] = "Registro exitoso. Puedes iniciar sesión ahora.";
+        header("Location: ../public/registro.html");
     } else {
-        echo "Error en el registro: " . $stmt_insert->error;
+        $_SESSION['error'] = "Error en el registro.";
+        header("Location: ../public/registro.html");
     }
 
     // Cerrar conexiones
@@ -50,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_insert->close();
     $conn->close();
 } else {
-    die("Acceso no permitido.");
+    $_SESSION['error'] = "Acceso no permitido.";
+    header("Location: ../public/registro.html");
 }
-
+?>
