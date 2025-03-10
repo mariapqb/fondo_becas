@@ -1,65 +1,57 @@
 <?php
-session_start(); // Iniciar sesión
-global $conn;
 require_once "db.php"; // Archivo con la conexión a la base de datos
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir datos del formulario
-    $tipo_documento = $_POST["document-type"];
-    $numero_documento = $_POST["document-number"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm-password"];
-    $rol = "Beneficiario"; // Rol predeterminado
+class Register {
+    private $conn;
 
-    // Validar que los campos no estén vacíos
-    if (empty($tipo_documento) || empty($numero_documento) || empty($password) || empty($confirm_password)) {
-        $_SESSION['error'] = "Todos los campos son obligatorios.";
-        header("Location: ../public/registro.html");
-        exit();
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
-    // Validar que las contraseñas coincidan
-    if ($password !== $confirm_password) {
-        $_SESSION['error'] = "Las contraseñas no coinciden.";
-        header("Location: ../public/registro.html");
-        exit();
+    public function registerUser($tipo_documento, $numero_documento, $password, $confirm_password): string
+    {
+        if (empty($tipo_documento) || empty($numero_documento) || empty($password) || empty($confirm_password)) {
+            return "Todos los campos son obligatorios.";
+        }
+
+        if ($password !== $confirm_password) {
+            return "Las contraseñas no coinciden.";
+        }
+
+        if ($this->userExists($numero_documento)) {
+            return "El usuario ya está registrado.";
+        }
+
+        return $this->insertUser($tipo_documento, $numero_documento, $password) ? "Registro exitoso." : "Error en el registro.";
     }
 
-    // Verificar si el usuario ya existe
-    $query_check = "SELECT * FROM usuarios WHERE numero_documento = ?";
-    $stmt_check = $conn->prepare($query_check);
-    $stmt_check->bind_param("s", $numero_documento);
-    $stmt_check->execute();
-    $result = $stmt_check->get_result();
+    private function userExists($numero_documento): bool {
+        $query_check = "SELECT 1 FROM usuarios WHERE numero_documento = ?";
+        $stmt_check = $this->conn->prepare($query_check);
 
-    if ($result->num_rows > 0) {
-        $_SESSION['error'] = "El usuario ya está registrado.";
-        header("Location: ../public/registro.html");
-        exit();
+        if (!$stmt_check) {
+            return false;
+        }
+
+        $stmt_check->bind_param("s", $numero_documento);
+        $stmt_check->execute();
+        $result = $stmt_check->get_result();
+
+        return (bool) $result->fetch_assoc(); // Si encuentra un usuario, devuelve true
     }
 
-    // Cifrar la contraseña con SHA-256
-    $password_hash = hash("sha256", $password);
+    private function insertUser($tipo_documento, $numero_documento, $password): bool {
+        $password_hash = hash("sha256", $password);
+        $rol = "Beneficiario";
 
-    // Insertar en la base de datos
-    $query_insert = "INSERT INTO usuarios (tipo_documento, numero_documento, contraseña, rol) VALUES (?, ?, ?, ?)";
-    $stmt_insert = $conn->prepare($query_insert);
-    $stmt_insert->bind_param("ssss", $tipo_documento, $numero_documento, $password_hash, $rol);
+        $query_insert = "INSERT INTO usuarios (tipo_documento, numero_documento, contraseña, rol) VALUES (?, ?, ?, ?)";
+        $stmt_insert = $this->conn->prepare($query_insert);
 
-    if ($stmt_insert->execute()) {
-        $_SESSION['success'] = "Registro exitoso. Puedes iniciar sesión ahora.";
-        header("Location: ../public/registro.html");
-    } else {
-        $_SESSION['error'] = "Error en el registro.";
-        header("Location: ../public/registro.html");
+        if (!$stmt_insert) {
+            return false;
+        }
+
+        $stmt_insert->bind_param("ssss", $tipo_documento, $numero_documento, $password_hash, $rol);
+        return $stmt_insert->execute();
     }
-
-    // Cerrar conexiones
-    $stmt_check->close();
-    $stmt_insert->close();
-    $conn->close();
-} else {
-    $_SESSION['error'] = "Acceso no permitido.";
-    header("Location: ../public/registro.html");
 }
-?>
