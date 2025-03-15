@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión </title>
+    <title>Inicio de Sesión - Fondo Municipal de Becas</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -34,16 +35,19 @@
         <h2>Inicio de Sesión</h2>
             <form class="govco-form" action="../backend/login.php" method="POST">
                 <label>Número de Documento
-                <input type="text" name="usuario" placeholder="Digite su número de documento" required>
+                <input type="number" name="usuario" placeholder="Digite su número de documento" required>
                 </label>
                 <label>Contraseña
                 <input type="password" name="password" placeholder="Contraseña" required>
                 </label>
+                    <!-- Agregar reCAPTCHA -->
+                    <div class="g-recaptcha" data-sitekey="TU_CLAVE_DEL_SITIO"></div>
                 <button type="submit">Ingresar</button>
             </form>
             <p>¿Aún no tienes una cuenta con nosotros? <a href="registro.html">Regístrate</a></p>
         </section>
     </div>
+
 </main>
 
 <!-- Secciones adicionales -->
