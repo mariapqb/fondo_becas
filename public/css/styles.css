@@ -1,3 +1,11 @@
+/*
+    Archivo: styles.css
+    Descripción: Estilos CSS para la interfaz de usuario, incluyendo encabezado, navegación,
+    diseño responsivo y secciones principales.
+*/
+
+/* Estilos generales */
+
 .main {
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos se acomoden en columnas */

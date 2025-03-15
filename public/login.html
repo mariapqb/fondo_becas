@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
+// Script para mostrar mensajes de error o éxito en alertas
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+
+        if (error) {
+            alert("Error: " + error);
+        }
+
+        if (success) {
+            alert("Éxito: " + success);
+        }
+    }
+</script>
 <body>
 
 <!-- Encabezado -->
@@ -33,7 +49,7 @@
     <div class="govco-auth-container">
         <section class="login">
         <h2>Inicio de Sesión</h2>
-            <form class="govco-form" action="../backend/login.php" method="POST">
+            <form class="govco-form" action="../backend/login_handler.php" method="POST">
                 <label>Número de Documento
                 <input type="number" name="usuario" placeholder="Digite su número de documento" required>
                 </label>

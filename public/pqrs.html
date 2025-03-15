@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PQRS</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css"><!-- Enlace a los estilos CSS -->
 </head>
+// Script para mostrar mensajes de error o éxito en alertas
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const success = urlParams.get('success');
+
+        if (error) {
+            alert("Error: " + error);
+        }
+
+        if (success) {
+            alert("Éxito: " + success);
+        }
+    }
+</script>
+
 <body>
 
 <!-- Encabezado -->
@@ -26,30 +43,30 @@
     <div class="govco-auth-container">
         <h2 class="h2">Formato de PQRS - Beca/Subsidio</h2>
         <div class="login">
-            <form class="govco-form" method="POST" action="../backend/pqrs.php">
+            <form class="govco-form" method="POST" action="../backend/pqrs_handler.php">
                 <label>Fecha:
-                <input type="date" name="fecha" required>
+                    <input type="date" name="fecha" required>
                 </label>
                 <label>Nombre completo:
-                <input type="text" name="nombre" required>
+                    <input type="text" name="nombre_completo" required>
                 </label>
                 <label>Documento de identidad:
-                <input type="text" name="documento" required>
+                    <input type="text" name="documento_identidad" required>
                 </label>
                 <label>Correo Electrónico:
-                <input type="email" name="correo" required>
+                    <input type="email" name="correo_electronico">
                 </label>
                 <label>Dirección:
-                <input type="text" name="direccion" required>
+                    <input type="text" name="direccion">
                 </label>
                 <label>Asunto:
-                <input type="text" name="asunto" required>
+                    <input type="text" name="asunto" required>
                 </label>
                 <label>Descripción de la situación:
-                <textarea name="descripcion" rows="5" cols="50" required></textarea>
+                    <textarea name="descripcion" rows="5" cols="50" required></textarea>
                 </label>
                 <label>Solicitud específica:
-                <textarea name="solicitud" rows="5" cols="50" required></textarea>
+                    <textarea name="solicitud_especifica" rows="5" cols="50"></textarea>
                 </label>
                 <button type="submit">Enviar</button>
             </form>

@@ -1,48 +1,53 @@
 <?php
-global $conn;
-session_start();
-include "db.php"; // Asegúrate de que este archivo contiene la conexión a la base de datos
+require_once "db.php"; // Archivo con la conexión a la base de datos
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $numero_documento = trim($_POST["usuario"]); // Número de documento como usuario
-    $password = trim($_POST["password"]);
+class Login {
+    private $conn;// Variable privada para la conexión a la base de datos
 
-    // Hash de la contraseña ingresada
-    $password_hashed = hash("sha256", $password);
-
-    // Consulta segura para evitar inyección SQL
-    $sql = "SELECT numero_documento, tipo_documento, contraseña, rol FROM usuarios WHERE numero_documento = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $numero_documento);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-
-        // Verificar la contraseña encriptada con SHA-256
-        if ($row["contraseña"] === $password_hashed) {
-            // Almacenar datos en la sesión
-            $_SESSION["numero_documento"] = $row["numero_documento"];
-            $_SESSION["tipo_documento"] = $row["tipo_documento"];
-            $_SESSION["rol"] = $row["rol"];
-
-            // Redirección según el rol
-            if ($row["rol"] === "Administrador") {
-                header("Location: admin_dashboard.php");
-            } else {
-                header("Location: beneficiario_dashboard.php");
-            }
-            exit();
-        } else {
-            echo "<script>alert('Número de documento o contraseña incorrectos.'); window.location.href='../frontend/login.html';</script>";
-        }
-    } else {
-        echo "<script>alert('Número de documento o contraseña incorrectos.'); window.location.href='../frontend/login.html';</script>";
+    /**
+     * Constructor de la clase Login.
+     * @param $conn objeto de conexión a la base de datos.
+     */
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
 
-    $stmt->close();
+    /**
+     * Método para autenticar a un usuario.
+     * @param string $numero_documento Número de documento del usuario.
+     * @param string $password Contraseña ingresada por el usuario.
+     * @return string Mensaje con el resultado de la autenticación.
+     */
+    public function authenticateUser($numero_documento, $password): string {
+        // Verificar si los campos están vacíos
+        if (empty($numero_documento) || empty($password)) {
+            return "Todos los campos son obligatorios.";
+        }
+        // Consulta para obtener la contraseña del usuario
+        $query = "SELECT contraseña FROM usuarios WHERE numero_documento = ?";
+        $stmt = $this->conn->prepare($query);
+
+        if (!$stmt) {
+            return "Error en la consulta.";
+        }
+
+        // Asignar el parámetro y ejecutar la consulta
+        $stmt->bind_param("s", $numero_documento);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        // Verificar si el usuario existe
+        if (!$user) {
+            return "Usuario no encontrado.";
+        }
+
+        // Verificar la contraseña ingresada con la almacenada (hash SHA-256)
+        $hashed_password = hash("sha256", $password);
+        if ($hashed_password !== $user["contraseña"]) {
+            return "Contraseña incorrecta.";
+        }
+
+        return "Inicio de sesión exitoso.";
+    }
 }
-
-$conn->close();
-
