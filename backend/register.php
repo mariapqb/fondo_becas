@@ -40,11 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt_insert->bind_param("ssss", $tipo_documento, $numero_documento, $password_hash, $rol);
 
     if ($stmt_insert->execute()) {
-        header("Location: ../public/login.html");
+        echo "Registro exitoso. <a href='../public/login.html'>Iniciar sesión</a>";
     } else {
         echo "Error en el registro: " . $stmt_insert->error;
     }
-
     // Cerrar conexiones
     $stmt_check->close();
     $stmt_insert->close();
