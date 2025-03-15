@@ -38,10 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query_insert = "INSERT INTO usuarios (tipo_documento, numero_documento, contraseña, rol) VALUES (?, ?, ?, ?)";
     $stmt_insert = $conn->prepare($query_insert);
     $stmt_insert->bind_param("ssss", $tipo_documento, $numero_documento, $password_hash, $rol);
-    
+
     if ($stmt_insert->execute()) {
         header("Location: ../public/login.html");
-        exit(); // Detiene la ejecución después de la redirección
     } else {
         echo "Error en el registro: " . $stmt_insert->error;
     }
