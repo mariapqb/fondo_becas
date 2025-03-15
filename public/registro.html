@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro </title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/terinosCondiciones.js"></script>
 </head>
 <body>
 
@@ -30,11 +31,11 @@
             <p>Con tu registro, tendrás total acceso a la gestión de trámites y servicios...</p>
         </section>
     </div>
-    <!-- Formulario -->
+
     <div class="govco-auth-container">
         <section class="login2">
             <h2>Registrar nuevo usuario</h2>
-            <form class="govco-form" method="POST" action="../backend/register_handler.php">
+            <form class="govco-form" method="POST" action="../backend/register.php">
                 <label for="document-type">Tipo de documento*</label>
                 <select id="document-type" name="document-type" required>
                     <option value="">Seleccione una opción</option>
@@ -53,10 +54,13 @@
                 <label for="confirm-password">Confirme la contraseña*</label>
                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Repite la contraseña" required minlength="8" oninput="checkPasswordMatch()">
                 <span id="password-error" style="color: red; display: none;">Las contraseñas no coinciden.</span>
-                
-
                 <button type="submit" href="login.html">Continuar</button>
             </form>
+            <label>    <!-- Secciones terminos y condiciones -->
+                <input type="checkbox" id="terms" required onchange="validateTerms()">
+                Acepto los <a href="terminos.html" target="_blank">Términos y Condiciones</a>
+            </label>
+            <span id="terms-error" style="color: red; display: none;">Debes aceptar los términos y condiciones.</span>
         </section>
     </div>
 </main>
@@ -73,30 +77,3 @@
 </body>
 </html>
 
-<script>
-    function validatePassword() {
-        const password = document.getElementById("password").value;
-        const message = document.getElementById("password-message");
-
-        // Expresión regular para validar la contraseña
-        const strongPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-        if (!strongPassword.test(password)) {
-            message.style.display = "block";
-        } else {
-            message.style.display = "none";
-        }
-    }
-
-    function checkPasswordMatch() {
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirm-password").value;
-        const errorText = document.getElementById("password-error");
-
-        if (password !== confirmPassword) {
-            errorText.style.display = "block";
-        } else {
-            errorText.style.display = "none";
-        }
-    }
-</script>
