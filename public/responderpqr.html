@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responder PQRS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/estado.js"></script>
+</head>
+
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <span>Fondo Municipal de Becas</span>
+        </div>
+        <div class="govco-form1">
+            <a href="admin.html" class="btn-secundary">Página Principal</a>
+        </div>
+    </div>
+</header>
+
+<main class="govco-auth">
+    <section class="login2">
+        <div class="w-full overflow-x-auto">
+            <h2 class="h2">PQR</h2>
+
+            <!-- Campo de búsqueda -->
+            <div class="w-full mb-4">
+                <input type="text" placeholder="Busqueda..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
+            </div>
+
+            <!-- Tabla de Becas -->
+            <div class="overflow-x-auto rounded-lg border border-gray-400">
+                <table class="w-full bg-white rounded-lg">
+                    <thead class="bg-blue-800 text-white">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-sm font-medium">Documento</th>
+                            <th class="px-4 py-3 text-left text-sm font-medium">Correo</th>
+                            <th class="px-4 py-3 text-left text-sm font-medium">Asunto</th>
+                            <th class="px-4 py-3 text-left text-sm font-medium">Estado</th>
+                            <th class="px-4 py-3 text-left text-sm font-medium">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-100 transition">
+                            <td class="px-4 py-3 whitespace-nowrap">12345678</td>
+                            <td class="px-4 py-3 whitespace-nowrap">correo@ejemplo.com</td>
+                            <td class="px-4 py-3 whitespace-nowrap">Solicitud de beca</td>
+                            <td class="px-4 py-3 whitespace-nowrap estado" data-dias="2"></td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition">Responder</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-100 transition">
+                            <td class="px-4 py-3 whitespace-nowrap">87654321</td>
+                            <td class="px-4 py-3 whitespace-nowrap">usuario@email.com</td>
+                            <td class="px-4 py-3 whitespace-nowrap">Consulta sobre subsidio</td>
+                            <td class="px-4 py-3 whitespace-nowrap estado" data-dias="5"></td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition">Responder</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-100 transition">
+                            <td class="px-4 py-3 whitespace-nowrap">56781234</td>
+                            <td class="px-4 py-3 whitespace-nowrap">persona@ejemplo.com</td>
+                            <td class="px-4 py-3 whitespace-nowrap">Reclamo por demora</td>
+                            <td class="px-4 py-3 whitespace-nowrap estado" data-dias="10"></td>
+                            <td class="px-4 py-3 whitespace-nowrap">
+                                <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition">Responder</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Secciones adicionales -->
+<section class="quick-links">
+
+</section>
+
+
+<footer class="footer">
+    <p>&copy; 2025 Fondo Municipal de Becas y Subsidios - Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
